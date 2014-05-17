@@ -29,7 +29,8 @@
 		yViewport = $(window).height();
 	});
 
-	$(document).on('click', '#wrapper', function(e) {
+	$("#wrapper").bind( "touchstart", function(e){
+//	$(document).on('click', '#wrapper', function(e) {
 		xPos = e.pageX;
 		yPos = e.pageY;
 
