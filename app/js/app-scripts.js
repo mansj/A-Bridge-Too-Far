@@ -29,7 +29,8 @@
 		yViewport = $(window).height();
 	});
 
-	$(window).click(function(e) {
+	$(document).on('click', '#wrapper', function(e) {
+//	$(window).click(function(e) {
 		xPos = e.pageX;
 		yPos = e.pageY;
 
