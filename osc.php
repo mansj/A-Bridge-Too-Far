@@ -52,14 +52,14 @@
 
 	</head>
 	<body scroll="no" scrolling="no" class="tug">
-	
+<!--	
 	<button onclick="localOSC();">Send OSC message</button>
 	<button onclick="localOSC2();">Send OSC message 2</button>
 	
 	<button onclick="sendOSC('mans');">Send Måns OSC message</button>
 	<button onclick="sendOSC('rich');">Send Richard OSC message</button>
 	<button onclick="sendOSC('anders');">Send Anders OSC message</button>
-
+-->
 	
 		<script type="text/javascript">
 			
@@ -77,9 +77,16 @@
 					var x = obj_res.x;
 					var y = obj_res.y;
 					var color = obj_res.color;
-					//socket.emit('message', '/' + who);
-					socket.emit('oscmessage', '/oscAddress', 81, 100, 1);
-					socket.emit('oscmessage', '/oscAddress', 100, 100, 0);
+
+					console.log("x : " + x + ", y: " + y);
+
+					x = parseInt((x / 100 * 47) + 70);
+					y = parseInt(127 - ((y / 100) * 77) + 50);
+					
+					console.log("x : " + x + ", y: " + y);
+
+					socket.emit('oscmessage', '/oscAddress', x, y, 1);
+					socket.emit('oscmessage', '/oscAddress', x, y, 0);
 			}
 			
 			function localOSC() {
@@ -95,10 +102,6 @@
 			}
 
 
-			function sendOSC(who) {
-				jQuery.get("http://abtf.iisdev.se/engine_osc.php?who=" + who);
-			}
-			
 		</script>
 	</body>
 </html>
