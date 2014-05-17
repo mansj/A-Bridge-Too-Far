@@ -8,10 +8,10 @@
 		
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		
-		<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script src="http://ybt.iisdev.se:8080/application.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-2.1.1.min.js"></script>
+
+		<script src="http://abtf.iisdev.se:8080/application.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			// Prenumerera på kanalen för rummet
 			var channel = new Juggernaut;
@@ -46,7 +46,7 @@
 		    socket.on('message', function(obj) {
 		        var status = document.getElementById("status");
 		        status.innerHTML = obj[0];
-		        console.log(obj);
+//		        console.log(obj);
 		    });
 		</script>
 
@@ -78,6 +78,8 @@
 					var y = obj_res.y;
 					var color = obj_res.color;
 
+					animateCircles();
+
 					console.log("x : " + x + ", y: " + y);
 
 					x = parseInt((x / 100 * 47) + 70);
@@ -101,6 +103,9 @@
 				socket.emit('oscmessage', '/oscAddress2', 100, 100, 0);
 			}
 
+			function animateCircles() {
+				
+			}
 
 		</script>
 	</body>
