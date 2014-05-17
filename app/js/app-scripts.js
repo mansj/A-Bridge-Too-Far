@@ -30,12 +30,13 @@
 	});
 
 	$(document).on('click', '#wrapper', function(e) {
-//	$(window).click(function(e) {
 		xPos = e.pageX;
 		yPos = e.pageY;
 
 		xPosPercent = getPosPercent(xPos, xViewport);
 		yPosPercent = getPosPercent(yPos, yViewport);
+
+		$("#status").html("Id:" + clientId + "<br />X-pos" + xPosPercent + "<br />Y-pos:" + yPosPercent + "<br />color:" + colorHex);
 
 		$.ajax({
 			url: "http://abtf.iisdev.se/engine_osc.php?id=" + clientId + "&x=" + xPosPercent + "&y=" + yPosPercent + "&color=" + colorHex
