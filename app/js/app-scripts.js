@@ -8,14 +8,17 @@
 	var arrColors = new Array(128);
 	var xViewport = $(window).width();
 	var yViewport = $(window).height();
+	var tileHeight = Math.floor(yViewport / 3);
 
 
 //////////////////////////
 // Starta allt
 //////////////////////////
 
-	// Skicka till display
-	// getClientId(), colorHex, xPosPercent, xPosPercent
+	// Animera fälten i appen
+	animateTop();
+	animateMiddle();
+	animateBottom();
 	
 	// Skapa Id
 	clientId = getClientId();
@@ -36,8 +39,6 @@
 		xPosPercent = getPosPercent(xPos, xViewport);
 		yPosPercent = getPosPercent(yPos, yViewport);
 		
-		$("#status").html("Id:" + clientId + "<br />X-pos" + xPosPercent + "<br />Y-pos:" + yPosPercent + "<br />color:" + colorHex);
-		
 		sendResponse(clientId, xPosPercent, yPosPercent, colorHex);
 	});
 
@@ -47,8 +48,6 @@
 
 		xPosPercent = getPosPercent(xPos, xViewport);
 		yPosPercent = getPosPercent(yPos, yViewport);
-
-		$("#status").html("Id:" + clientId + "<br />X-pos" + xPosPercent + "<br />Y-pos:" + yPosPercent + "<br />color:" + colorHex);
 
 		sendResponse(clientId, xPosPercent, yPosPercent, colorHex);
 	});
@@ -94,31 +93,72 @@
 		$.ajax({
 			url: "http://abtf.iisdev.se/engine_osc.php?id=" + clientId + "&x=" + xPosPercent + "&y=" + yPosPercent + "&colorhex=" + colorHex
 		});
+		
+		animateCircles(clientId, xPosPercent, yPosPercent, colorHex);
+	}
+
+	function animateCircles(id, x, y, colorhex) {
+		xPos = (x / 100) * xViewport;
+		yPos = (y / 100) * yViewport;
+		
+		var randomCircleId = Math.floor(Math.random()*99999);
+		
+		var circle = '<div style="z-index: 99;" id="circle_' + randomCircleId + '" class="circle"></div>';
+		$("#wrapper").prepend(circle);
+		var styles = {
+			backgroundColor: "#" + colorhex,
+			top: yPos + "px",
+			left: xPos + "px"
+		};
+		$("#circle_" + randomCircleId).css(styles);
+		
+		var newSize = 250;
+		
+		$("#circle_" + randomCircleId).animate({
+			"left": "-=" + newSize/2 + "px",
+			"top": "-=" + newSize/2 + "px",
+			"width": "+=" + newSize + "px",
+			"height": "+=" + newSize + "px",
+			"opacity": "1"
+		}, 2000, "linear");
+		
+		$("#circle_" + randomCircleId).animate({
+			"left": "-=" + newSize * 2/2 + "px",
+			"top": "-=" + newSize * 2/2 + "px",
+			"width": "+=" + newSize * 2 + "px",
+			"height": "+=" + newSize * 2 + "px",
+			"opacity": "0"
+		}, 2000, "linear");
+	}
+
+	function animateTop() {
+		$('#top').css('height', tileHeight); 
+		$('#top').animate({ backgroundColor: "#5B4A5A"}, 4000); 
+		$('#top').animate({ backgroundColor: "#3B2A3A"}, 2000); 
+		window.setTimeout("animateTop();", 0);
+	}
+	
+	function animateMiddle() {
+		var styles = {
+			height: tileHeight,
+			top: tileHeight + "px"
+		};
+		$('#middle').css(styles);
+		$('#middle').animate({ backgroundColor: "#AC5F67"}, 5000); 
+		$('#middle').animate({ backgroundColor: "#8C3F47"}, 4000); 
+		window.setTimeout("animateTop();", 0);
+	}
+	
+	function animateBottom() {
+		var styles = {
+			height: tileHeight,
+			top: (tileHeight * 2) + "px"
+		};
+		$('#bottom').css(styles);
+		$('#bottom').animate({ backgroundColor: "#E75462"}, 6000); 
+		$('#bottom').animate({ backgroundColor: "#C73442"}, 2000); 
+		window.setTimeout("animateTop();", 0);
 	}
 
 
-			function animateTop() {
-				$('#top').animate({ backgroundColor: "#5B4A5A"}, 4000); 
-				$('#top').animate({ backgroundColor: "#3B2A3A"}, 2000); 
-				window.setTimeout("animateTop();", 0);
-			}
-			function animateMiddle() {
-				$('#middle').animate({ backgroundColor: "#AC5F67"}, 5000); 
-				$('#middle').animate({ backgroundColor: "#8C3F47"}, 4000); 
-				window.setTimeout("animateTop();", 0);
-			}
-			function animateBottom() {
-				$('#bottom').animate({ backgroundColor: "#E75462"}, 6000); 
-				$('#bottom').animate({ backgroundColor: "#C73442"}, 2000); 
-				window.setTimeout("animateTop();", 0);
-			}
-		
-			$(document).ready(function() { 
-			
-				animateTop();
-				animateMiddle();
-				animateBottom();
-			
-			}); 
-		
 		
