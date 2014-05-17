@@ -1,0 +1,16 @@
+/* Mostly: http://ryanfait.com/sticky-footer/ */
+
+html, body { overflow: hidden; height: 100%; background: rgba(0, 127, 195, 0.2); }
+.page-wrap { width: 100%; min-height: 100%; margin-bottom: -142px;  }
+.page-wrap:after { content: ""; display: block; }
+.site-footer, .page-wrap:after { height: 142px;  }
+.site-footer { background: green; }
+
+.line { display: block; position: absolute; top: 250px; width: 100%; height: 2px; background: rgba(0, 0, 0, 0.85); }
+
+#owl { display: block; position: absolute; left: 150px; bottom: -125px; }
+#owl svg { width: 100px; height: 100px; }
+#airplane { display: block; position: absolute; left: -100px; bottom: 550px; }
+
+/* #right_wing { fill: #999999; } */
+
