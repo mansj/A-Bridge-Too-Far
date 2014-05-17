@@ -18,10 +18,10 @@
 			
 		</script>
 		
-<!--		<script src="http://127.0.0.1:8081/socket.io/socket.io.js"></script>-->
+		<script src="http://127.0.0.1:8081/socket.io/socket.io.js"></script>
 
 		<script>
-/*		   socket = io.connect('http://127.0.0.1', { port: 8081, rememberTransport: false});
+		   socket = io.connect('http://127.0.0.1', { port: 8081, rememberTransport: false});
 		   console.log('oi');
 		   socket.on('connect', function() {
 		        // sends to socket.io server the host/port of oscServer
@@ -44,7 +44,7 @@
 		        var status = document.getElementById("status");
 		        status.innerHTML = obj[0];
 //		        console.log(obj);
-		    });*/
+		    });
 		</script>
 
 	</head>
