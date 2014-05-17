@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<style type="text/css">
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		#container {
+			width: 100%;
+			height: 100%;
+		}
+		#top {
+			width: 100%;
+			height: 33%;
+			background-color: #3B2A3A;
+		}
+		#middle {
+			width: 100%;
+			height: 33%;
+			background-color: #8C3F47;
+		}
+		#bottom {
+			width: 100%;
+			height: 34%;
+			background-color: #C73442;
+		}
+		
+		</style>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script>
+			
+			function animateTop() {
+				$('#top').animate({ backgroundColor: "#5B4A5A"}, 4000); 
+				$('#top').animate({ backgroundColor: "#3B2A3A"}, 2000); 
+				window.setTimeout("animateTop();", 0);
+			}
+			function animateMiddle() {
+				$('#middle').animate({ backgroundColor: "#AC5F67"}, 5000); 
+				$('#middle').animate({ backgroundColor: "#8C3F47"}, 4000); 
+				window.setTimeout("animateTop();", 0);
+			}
+			function animateBottom() {
+				$('#bottom').animate({ backgroundColor: "#E75462"}, 6000); 
+				$('#bottom').animate({ backgroundColor: "#C73442"}, 2000); 
+				window.setTimeout("animateTop();", 0);
+			}
+		
+			$(document).ready(function() { 
+			
+				animateTop();
+				animateMiddle();
+				animateBottom();
+			
+			}); 
+		
+		</script>
+	</head>
+	<body>
+<meta name="viewport" content="minimal-ui">
+		<div id="container">
+			<div id="top"></div>
+			<div id="middle"></div>
+			<div id="bottom"></div>
+		</div>
+	</body>
+</html>

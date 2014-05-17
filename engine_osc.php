@@ -26,7 +26,7 @@ $pusher_json = "{
 	\"id\": \"{$_GET["id"]}\",
 	\"x\": \"{$_GET["x"]}\",
 	\"y\": \"{$_GET["y"]}\",
-	\"color\": \"{$_GET["color"]}\"			
+	\"colorhex\": \"{$_GET["colorhex"]}\"			
 }";
 
 Juggernaut::publish("osc", utf8_encode($pusher_json));
