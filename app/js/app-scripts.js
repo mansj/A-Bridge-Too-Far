@@ -29,10 +29,13 @@
 		yViewport = $(window).height();
 	});
 
-	$("#wrapper").bind( "touchstart", function(e){
+	$("#wrapper").on( "touchstart", "#wrapper", function(e) {
 //	$(document).on('click', '#wrapper', function(e) {
-		xPos = e.pageX;
-		yPos = e.pageY;
+//		xPos = e.pageX;
+//		yPos = e.pageY;
+
+		xPos = e.originalEvent.touches[0].pageX;
+		yPos = e.originalEvent.touches[0].pageY;
 
 		xPosPercent = getPosPercent(xPos, xViewport);
 		yPosPercent = getPosPercent(yPos, yViewport);
