@@ -29,11 +29,19 @@
 		yViewport = $(window).height();
 	});
 
-	$(document).on( "touchstart", "#wrapper", function(e) {
-//	$(document).on('click', '#wrapper', function(e) {
-//		xPos = e.pageX;
-//		yPos = e.pageY;
+	$(document).on('click', '#wrapper', function(e) {
+		xPos = e.pageX;
+		yPos = e.pageY;
 
+		xPosPercent = getPosPercent(xPos, xViewport);
+		yPosPercent = getPosPercent(yPos, yViewport);
+		
+		$("#status").html("Id:" + clientId + "<br />X-pos" + xPosPercent + "<br />Y-pos:" + yPosPercent + "<br />color:" + colorHex);
+
+		sendResponse(clientId, xPosPercent, yPosPercent, colorHex);
+	});
+
+	$(document).on( "touchstart", "#wrapper", function(e) {
 		xPos = e.originalEvent.touches[0].pageX;
 		yPos = e.originalEvent.touches[0].pageY;
 
@@ -42,9 +50,7 @@
 
 		$("#status").html("Id:" + clientId + "<br />X-pos" + xPosPercent + "<br />Y-pos:" + yPosPercent + "<br />color:" + colorHex);
 
-		$.ajax({
-			url: "http://abtf.iisdev.se/engine_osc.php?id=" + clientId + "&x=" + xPosPercent + "&y=" + yPosPercent + "&color=" + colorHex
-		});
+		sendResponse(clientId, xPosPercent, yPosPercent, colorHex);
 	});
 
 
@@ -82,4 +88,10 @@
         ];
 		
 		return arrColors[colorId];
+	}
+
+	function sendResponse(clientId, xPosPercent, yPosPercent, colorHex) {
+		$.ajax({
+			url: "http://abtf.iisdev.se/engine_osc.php?id=" + clientId + "&x=" + xPosPercent + "&y=" + yPosPercent + "&color=" + colorHex
+		});
 	}
