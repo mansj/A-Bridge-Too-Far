@@ -1,4 +1,4 @@
-<?php require_once("inc_functions.php");
+<?php // require_once("inc_functions.php");
 	
 ?>
 <!DOCTYPE html>
