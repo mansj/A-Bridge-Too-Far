@@ -1,4 +1,4 @@
-<?php // require_once("inc_functions.php");
+<?php require_once("inc_functions.php");
 	
 ?>
 <!DOCTYPE html>
@@ -77,8 +77,6 @@
 					var x = obj_res.x;
 					var y = obj_res.y;
 					var color = obj_res.color;
-
-					animateCircles();
 
 					console.log("x : " + x + ", y: " + y);
 
