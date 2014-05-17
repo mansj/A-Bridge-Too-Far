@@ -24,12 +24,21 @@
 	colorId = Math.floor(Math.random()*(127-0+1)+0);
 	colorHex = getColor(colorId);
 
+	$(window).resize(function() {
+		xViewport = $(window).width();
+		yViewport = $(window).height();
+	});
+
 	$(window).click(function(e) {
 		xPos = e.pageX;
 		yPos = e.pageY;
 
 		xPosPercent = getPosPercent(xPos, xViewport);
 		yPosPercent = getPosPercent(yPos, yViewport);
+
+		$.ajax({
+			url: "http://abtf.iisdev.se/engine_osc.php?id=" + clientId + "&x=" + xPosPercent + "&y=" + yPosPercent + "&color=" + colorHex
+		});
 	});
 
 
