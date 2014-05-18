@@ -32,6 +32,9 @@
 			</svg>
 		</span>
 		
+		<span id="buddha_1"></span>
+		<span id="buddha_2"></span>
+		
 		<section id="wrapper"></section>
 	
 		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
@@ -79,6 +82,9 @@
 			
 			var xViewport = $(window).width();
 			var yViewport = $(window).height();
+			var buddhaPos = (yViewport / 2) - 400;
+			var buddhaNo = 1;
+
 			
 			var styles = {
 				top: ((yViewport / 2) - 150) + "px",
@@ -87,6 +93,7 @@
 			$("#logo").css(styles);
 			
 			animateLogo();
+			buddhaFly();
 			
 			function encode_utf8( s ) {
 				return unescape( encodeURIComponent( s ) );
@@ -144,7 +151,7 @@
 			
 			function animateLogo() {
 				$("#logo").animate({
-					"opacity": "0.5"
+					"opacity": "0.35"
 				}, 4000, "linear");
 				
 				$("#logo").animate({
@@ -152,6 +159,28 @@
 				}, 4000, "linear");
 				window.setTimeout("animateLogo();", 12000)
 			}
+			
+			function buddhaFly() {
+				// Buddha ska animeras med random frekvens och position från botten
+				randomInt = Math.floor(Math.random()*10000+5000);
+				
+				timer = setTimeout(function() {
+					buddhaNo = (buddhaNo == 1) ? 2 : 1;
+					$( "#buddha_" + buddhaNo ).animate({
+						left: "100%",
+						top: evenOddPlusMinus(buddhaPos, randomInt)
+					}, 30000, "linear", function() {
+						$('#buddha').removeAttr('style');
+						buddhaFly();
+					});
+				}, "5000");
+			}
+			
+			function evenOddPlusMinus(buddhaPos, randomInt) {
+				var newBuddhaPos = (randomInt % 2 == 0) ? buddhaPos + (randomInt / 200) : buddhaPos - (randomInt / 200);
+				return(Math.floor(newBuddhaPos));
+			}
+			
 		</script>
 	</body>
 </html>

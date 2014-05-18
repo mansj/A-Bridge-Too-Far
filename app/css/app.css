@@ -20,24 +20,24 @@ html, body { height: 100%; }
 			top: 0;
 			left: 0;
 			width: 100%;
-			background-color: #3B2A3A;
 			z-index: 1;
+			background: -webkit-linear-gradient(left, #aaa, #ddd);			
 			overflow: hidden;
 		}
 		#middle {
 			position: absolute;
 			left: 0;
 			width: 100%;
-			background-color: #8C3F47;
 			z-index: 2;
+			background: -webkit-linear-gradient(left, #ddd, #aaa);
 			overflow: hidden;
 		}
 		#bottom {
 			position: absolute;
 			left: 0;
 			width: 100%;
-			background-color: #C73442;
 			z-index: 3;
+			background: -webkit-linear-gradient(left, #aaa, #ddd);
 			overflow: hidden;
 		}
 		

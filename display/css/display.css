@@ -2,9 +2,16 @@
 html, body { height: 100%; }
 body { background-color: #000000; }
 
+
+#buddha_1 { z-index: 1; position: absolute; display: block; top: 100px; left: -900px; width: 500px; height: 500px; background: url(../images/buddha-1.png); background-size: contain; opacity: 0.35; }
+#buddha_2 { z-index: 1; position: absolute; display: block; top: 100px; left: -900px; width: 500px; height: 500px; background: url(../images/buddha-2.png); background-size: contain; opacity: 0.35; }
+
 #wrapper { min-height: 100%; }
+
+
 
 #logo { display: block; position: absolute; left: 0; top: 0; width: 500px; }
 #logo svg { width: 300px; height: 300px; }
 
-.circle { position: absolute; top: 0; left: 0; width: 2px; height: 2px; border-radius: 1000px; opacity: 0; }
+.circle { z-index: 3; position: absolute; top: 0; left: 0; width: 2px; height: 2px; border-radius: 1000px; opacity: 0; }
+
