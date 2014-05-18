@@ -38,4 +38,7 @@
 
 					socket.emit('oscmessage', message, outy, x, 1);
 					socket.emit('oscmessage', message, outy, x, 0);
+					
+					// Web audio här
+					//playSound(0, outy);
 			}

@@ -78,6 +78,9 @@
 		
 		<script type="text/javascript" src="js/push-feed.js"></script>
 		<script type="text/javascript" src="js/animate-background.js"></script>
+		<script type="text/javascript" src="/audio/buffer-loader.js"></script>
+		<script type="text/javascript" src="/audio/webaudio.js"></script>
+
 		<script type="text/javascript">
 			
 			var xViewport = $(window).width();
@@ -137,7 +140,7 @@
 					"top": "-=" + newSize/2 + "px",
 					"width": "+=" + newSize + "px",
 					"height": "+=" + newSize + "px",
-					"opacity": "1"
+					"opacity": "0.5"
 				}, 2000, "linear");
 				
 				$("#circle_" + randomCircleId).animate({
