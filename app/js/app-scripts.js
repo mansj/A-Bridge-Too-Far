@@ -22,12 +22,21 @@
 	document.addEventListener('touchmove', handleMove, true);
 
 
-	$(document).ready(function() {
-		$("#logo").animate({
-			"font-size": "+=20px",
-			"opacity": "0"
-		}, 3000, "linear");
-	});
+	var styles = {
+		top: ((yViewport / 2) - 150) + "px",
+		left: ((xViewport / 2) - 150) + "px"
+	};
+	$("#logo").css(styles);
+
+	$("#logo").delay(1000).animate({
+		"top": "-=500px",
+		"left": "-=500px"
+	}, 3000);
+	$("#logo svg").delay(1000).animate({
+		"width": "+=1000px",
+		"height": "+=1000px",
+		"opacity": "0"
+	}, 3000);
 
 	// Animera fälten i appen
 	animateTop();
