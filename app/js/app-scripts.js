@@ -14,6 +14,20 @@
 //////////////////////////
 // Starta allt
 //////////////////////////
+	
+	// Stoppa dra-och-panorera i mobilen
+	var handleMove = function (e) {
+    	if($(e.target).closest('.scrollable').length == 0) { e.preventDefault(); }
+	}
+	document.addEventListener('touchmove', handleMove, true);
+
+
+	$(document).ready(function() {
+		$("#logo").animate({
+			"font-size": "+=20px",
+			"opacity": "0"
+		}, 3000, "linear");
+	});
 
 	// Animera fälten i appen
 	animateTop();
