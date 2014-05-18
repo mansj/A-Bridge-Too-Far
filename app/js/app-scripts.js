@@ -70,6 +70,39 @@
 //////////////////////////
 // Funktioner
 //////////////////////////
+	
+	// Räkna om hex till RGB
+	function hexToRgb(hex) {
+	hex = hex.substr(1, 6);
+   	 var bigint = parseInt(hex, 16);
+   	 var r = (bigint >> 16) & 255;
+   	 var g = (bigint >> 8) & 255;
+	    var b = bigint & 255;
+
+	    return [r, g, b];
+	}
+
+	
+	function ColorLuminance(hex, lum) {
+	
+		// validate hex string
+		hex = String(hex).replace(/[^0-9a-f]/gi, '');
+		if (hex.length < 6) {
+			hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+		}
+		lum = lum || 0;
+	
+		// convert to decimal and change luminosity
+		var rgb = "#", c, i;
+		for (i = 0; i < 3; i++) {
+			c = parseInt(hex.substr(i*2,2), 16);
+			c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+			rgb += ("00"+c).substr(c.length);
+		}
+	
+		return rgb;
+	}
+
 
 	function getPosPercent(pos, viewport) {
 		return Math.floor((pos / viewport) * 100);
@@ -105,7 +138,7 @@
 
 	function sendResponse(clientId, xPosPercent, yPosPercent, colorHex) {
 		$.ajax({
-			url: "http://abtf.iisdev.se/engine_osc.php?id=" + clientId + "&x=" + xPosPercent + "&y=" + yPosPercent + "&colorhex=" + colorHex
+			url: "http://www.floater.se/engine_osc.php?id=" + clientId + "&x=" + xPosPercent + "&y=" + yPosPercent + "&colorhex=" + colorHex
 		});
 		
 		animateCircles(clientId, xPosPercent, yPosPercent, colorHex);
@@ -144,12 +177,11 @@
 			"opacity": "0"
 		}, 2000, "linear");
 	}
+	
+	
 
 	function animateTop() {
 		$('#top').css('height', tileHeight); 
-		$('#top').animate({ backgroundColor: "#5B4A5A"}, 4000); 
-		$('#top').animate({ backgroundColor: "#3B2A3A"}, 2000); 
-		window.setTimeout("animateTop();", 0);
 	}
 	
 	function animateMiddle() {
@@ -158,9 +190,6 @@
 			top: tileHeight + "px"
 		};
 		$('#middle').css(styles);
-		$('#middle').animate({ backgroundColor: "#AC5F67"}, 5000); 
-		$('#middle').animate({ backgroundColor: "#8C3F47"}, 4000); 
-		window.setTimeout("animateTop();", 0);
 	}
 	
 	function animateBottom() {
@@ -169,10 +198,125 @@
 			top: (tileHeight * 2) + "px"
 		};
 		$('#bottom').css(styles);
-		$('#bottom').animate({ backgroundColor: "#E75462"}, 6000); 
-		$('#bottom').animate({ backgroundColor: "#C73442"}, 2000); 
-		window.setTimeout("animateTop();", 0);
 	}
 
 
+function changeHue(rgb, degree) {
+    var hsl = rgbToHSL(rgb);
+    hsl.h += degree;
+    if (hsl.h > 360) {
+        hsl.h -= 360;
+    }
+    else if (hsl.h < 0) {
+        hsl.h += 360;
+    }
+    return hslToRGB(hsl);
+}
+
+// exepcts a string and returns an object
+function rgbToHSL(rgb) {
+    // strip the leading # if it's there
+    rgb = rgb.replace(/^\s*#|\s*$/g, '');
+
+    // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+    if(rgb.length == 3){
+        rgb = rgb.replace(/(.)/g, '$1$1');
+    }
+
+    var r = parseInt(rgb.substr(0, 2), 16) / 255,
+        g = parseInt(rgb.substr(2, 2), 16) / 255,
+        b = parseInt(rgb.substr(4, 2), 16) / 255,
+        cMax = Math.max(r, g, b),
+        cMin = Math.min(r, g, b),
+        delta = cMax - cMin,
+        l = (cMax + cMin) / 2,
+        h = 0,
+        s = 0;
+
+    if (delta == 0) {
+        h = 0;
+    }
+    else if (cMax == r) {
+        h = 60 * (((g - b) / delta) % 6);
+    }
+    else if (cMax == g) {
+        h = 60 * (((b - r) / delta) + 2);
+    }
+    else {
+        h = 60 * (((r - g) / delta) + 4);
+    }
+
+    if (delta == 0) {
+        s = 0;
+    }
+    else {
+        s = (delta/(1-Math.abs(2*l - 1)))
+    }
+
+    return {
+        h: h,
+        s: s,
+        l: l
+    }
+}
+
+// expects an object and returns a string
+function hslToRGB(hsl) {
+    var h = hsl.h,
+        s = hsl.s,
+        l = hsl.l,
+        c = (1 - Math.abs(2*l - 1)) * s,
+        x = c * ( 1 - Math.abs((h / 60 ) % 2 - 1 )),
+        m = l - c/ 2,
+        r, g, b;
+
+    if (h < 60) {
+        r = c;
+        g = x;
+        b = 0;
+    }
+    else if (h < 120) {
+        r = x;
+        g = c;
+        b = 0;
+    }
+    else if (h < 180) {
+        r = 0;
+        g = c;
+        b = x;
+    }
+    else if (h < 240) {
+        r = 0;
+        g = x;
+        b = c;
+    }
+    else if (h < 300) {
+        r = x;
+        g = 0;
+        b = c;
+    }
+    else {
+        r = c;
+        g = 0;
+        b = x;
+    }
+
+    r = normalize_rgb_value(r, m);
+    g = normalize_rgb_value(g, m);
+    b = normalize_rgb_value(b, m);
+
+    return rgbToHex(r,g,b);
+}
+
+function normalize_rgb_value(color, m) {
+    color = Math.floor((color + m) * 255);
+    if (color < 0) {
+        color = 0;
+    }
+    return color;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
 		
