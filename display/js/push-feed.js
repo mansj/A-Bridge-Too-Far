@@ -16,18 +16,21 @@
 					x = parseInt(x) + 27;					
 					
 					if (y < 33) {
+						sound = 1;
 						message = "/oscAddress";
 						y = y * 3;
 						tempy = 10 - parseInt(y/10);
 						outy = noteAr[tempy];
 					}
 					else if (y < 66) {
+						sound = 2;
 						message = "/oscAddress2";
 						y = (y - 33) * 3;
 						tempy = 10 - parseInt(y/10);
 						outy = noteAr[tempy];
 					}
 					else {
+						sound = 3;
 						message = "/oscAddress3";
 						y = (y - 66) * 3;
 						tempy = 10 - parseInt(y/10);
@@ -40,5 +43,5 @@
 					socket.emit('oscmessage', message, outy, x, 0);
 					
 					// Web audio här
-					//playSound(0, outy);
+					playSound(sound, outy);
 			}

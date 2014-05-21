@@ -80,6 +80,8 @@
 		<script type="text/javascript" src="js/animate-background.js"></script>
 		<script type="text/javascript" src="/audio/buffer-loader.js"></script>
 		<script type="text/javascript" src="/audio/webaudio.js"></script>
+		<script type="text/javascript" src="/audio/seamlessLoop.js"></script>
+		
 
 		<script type="text/javascript">
 			
@@ -97,6 +99,17 @@
 			
 			animateLogo();
 			buddhaFly();
+			
+			// Lägg till bakgrundsloop
+			var loop = new SeamlessLoop();
+			loop.addUri('/audio/floater_loop.mp3', 6000, "loop1");
+			loop.callback(soundsLoaded);
+			
+			function soundsLoaded() {
+				loop.start("loop1");
+				loop.volume(0.5);
+			};
+
 			
 			function encode_utf8( s ) {
 				return unescape( encodeURIComponent( s ) );

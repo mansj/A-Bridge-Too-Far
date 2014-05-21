@@ -11,8 +11,10 @@ function init() {
   bufferLoader = new BufferLoader(
     context,
     [
-      '/audio/synthesizer02.wav',
-      '/audio/synthesizer23.wav',
+      '/audio/floater_loop.mp3',
+      '/audio/floater_1.mp3',
+      '/audio/floater_2.mp3',
+      '/audio/floater_3.mp3'
     ],
     finishedLoading
     );
@@ -24,22 +26,27 @@ function finishedLoading(bufferList) {
   // Create two sources and play them both together.
   var source1 = context.createBufferSource();
   var source2 = context.createBufferSource();
+  var source3 = context.createBufferSource();
+  var source4 = context.createBufferSource();
+  
   source1.buffer = bufferList[0];
   source2.buffer = bufferList[1];
+  source3.buffer = bufferList[2];
+  source4.buffer = bufferList[3];
   
   bufferList1 = bufferList;
 
   source1.connect(context.destination);
   source2.connect(context.destination);
-//  source1.start(0);
-//  source2.start(0);
+  source3.connect(context.destination);
+  source4.connect(context.destination);
 }
 
 function playSound(sound, rate) {
   var source1 = context.createBufferSource();
   source1.buffer = bufferList1[sound];
   source1.connect(context.destination);
-  source1.playbackRate.value = rate/100;
+  source1.playbackRate.value = rate/120;
 
 
 	source1.start(0);
